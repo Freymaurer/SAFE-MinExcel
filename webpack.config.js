@@ -15,20 +15,21 @@ var CONFIG = {
     // See https://github.com/jantimon/html-webpack-plugin
     indexHtmlTemplate: './src/Client/index.html',
     fsharpEntry: './src/Client/output/App.js',
+    cssEntry: './src/Client/style.scss',
     outputDir: './deploy/public',
     assetsDir: './src/Client/public',
-    devServerPort: 8080,
+    devServerPort: 3000,
     // When using webpack-dev-server, you may need to redirect some calls
     // to a external API server. See https://webpack.js.org/configuration/dev-server/#devserver-proxy
     devServerProxy: {
         // redirect requests that start with /api/ to the server on port 8085
         '/api/**': {
-            target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "8085"),
+            target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "5000"),
                changeOrigin: true
            },
         // redirect websocket requests that start with /socket/ to the server on the port 8085
         '/socket/**': {
-            target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "8085"),
+            target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "5000"),
             ws: true
            }
        }
@@ -54,8 +55,11 @@ module.exports = {
     // have a faster HMR support. In production bundle styles together
     // with the code because the MiniCssExtractPlugin will extract the
     // CSS in a separate files.
-    entry: {
-        app: resolve(CONFIG.fsharpEntry)
+    entry: isProduction ? {
+        app: [resolve(CONFIG.fsharpEntry), resolve(CONFIG.cssEntry)]
+    } : {
+        app: resolve(CONFIG.fsharpEntry),
+        style: resolve(CONFIG.cssEntry)
     },
     // Add a hash to the output file name in production
     // to prevent browser caching if code changes
@@ -85,6 +89,9 @@ module.exports = {
         : commonPlugins.concat([
             new webpack.HotModuleReplacementPlugin(),
         ]),
+    externals: {
+        officejs: 'Office.js',
+    },
     resolve: {
         // See https://github.com/fable-compiler/Fable/issues/1490
         symlinks: false
@@ -95,6 +102,11 @@ module.exports = {
         contentBase: resolve(CONFIG.assetsDir),
         host: '0.0.0.0',
         port: CONFIG.devServerPort,
+        https: {
+            key: "{USERFOLDER}/.office-addin-dev-certs/localhost.key",
+            cert: "{USERFOLDER}/.office-addin-dev-certs/localhost.crt",
+            ca: "{USERFOLDER}/.office-addin-dev-certs/ca.crt"
+        },
         proxy: CONFIG.devServerProxy,
         hot: true,
         inline: true

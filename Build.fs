@@ -4,6 +4,7 @@ open Farmer
 open Farmer.Builders
 
 open Helpers
+open System
 
 initializeContext()
 
@@ -25,6 +26,61 @@ Target.create "InstallClient" (fun _ -> run npm "install" ".")
 Target.create "Bundle" (fun _ ->
     [ "server", dotnet $"publish -c Release -o \"{deployPath}\"" serverPath
       "client", dotnet "fable -o output -s --run webpack -p" clientPath ]
+    |> runParallel
+)
+
+Target.create "InstallOfficeAddinTooling" (fun _ ->
+
+    printfn "Installing office addin tooling"
+
+    run npm "install -g office-addin-dev-certs" __SOURCE_DIRECTORY__
+    run npm "install -g office-addin-debugging" __SOURCE_DIRECTORY__
+    run npm "install -g office-addin-manifest" __SOURCE_DIRECTORY__
+)
+
+Target.create "WebpackConfigSetup" (fun _ ->
+    let userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
+
+    Shell.replaceInFiles
+        [
+            "{USERFOLDER}",userPath.Replace("\\","/")
+        ]
+        [
+            (Path.combine __SOURCE_DIRECTORY__ "webpack.config.js")
+        ]
+)
+
+Target.create "SetLoopbackExempt" (fun _ ->
+    Command.RawCommand("CheckNetIsolation.exe",Arguments.ofList [
+        "LoopbackExempt"
+        "-a"
+        "-n=\"microsoft.win32webviewhost_cw5n1h2txyewy\""
+    ])
+    |> CreateProcess.fromCommand
+    |> Proc.run
+    |> ignore
+)
+
+Target.create "CreateDevCerts" (fun _ ->
+    run npx "office-addin-dev-certs install --days 365" __SOURCE_DIRECTORY__
+
+    let certPath =
+        Path.combine
+            (Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+            ".office-addin-dev-certs/ca.crt"
+        
+
+    let psi = new System.Diagnostics.ProcessStartInfo(FileName = certPath, UseShellExecute = true)
+    System.Diagnostics.Process.Start(psi) |> ignore
+)
+
+Target.create "officedebug" (fun _ ->
+    run dotnet "build" sharedPath
+    [ "server", dotnet "watch run" serverPath
+      "client", dotnet "fable watch --run webpack-dev-server" clientPath
+      /// sideload webapp in excel
+      "officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
+      ]
     |> runParallel
 )
 
@@ -75,6 +131,12 @@ let dependencies = [
 
     "InstallClient"
         ==> "RunTests"
+
+    "InstallOfficeAddinTooling"
+        ==> "WebpackConfigSetup"
+        ==> "CreateDevCerts"
+        ==> "SetLoopbackExempt"
+        ==> "Setup"
 ]
 
 [<EntryPoint>]

@@ -82,6 +82,23 @@ let npm =
             |> failwith
 
     createProcess npmPath
+let npx =
+    let npxPath =
+        match ProcessUtils.tryFindFileOnPath "npx" with
+        | Some path -> path
+        | None ->
+            "npx was not found in path. Please install it and make sure it's available from your path."
+            |> failwith
+    createProcess npxPath
+let node =
+    let nodePath =
+        match ProcessUtils.tryFindFileOnPath "node" with
+        | Some path -> path
+        | None ->
+            "node was not found in path. Please install it and make sure it's available from your path."
+            |> failwith
+    createProcess nodePath
+
 
 let run proc arg dir =
     proc arg dir

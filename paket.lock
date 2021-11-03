@@ -2,6 +2,10 @@ STORAGE: NONE
 RESTRICTION: == net5.0
 NUGET
   remote: https://api.nuget.org/v3/index.json
+    ExcelJS.Fable (0.3)
+      Fable.Core (>= 3.2.8)
+      Fable.React (>= 7.4.1)
+      FSharp.Core (>= 5.0)
     Expecto (9.0.2)
       FSharp.Core (>= 4.6)
       Mono.Cecil (>= 0.11.2)
