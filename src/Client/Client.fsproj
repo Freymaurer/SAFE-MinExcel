@@ -8,6 +8,7 @@
         <None Include="style.scss" />
         <None Include="index.html" />
         <None Include="paket.references" />
+        <Compile Include="ExcelInterop.fs" />
         <Compile Include="Index.fs" />
         <Compile Include="App.fs" />
     </ItemGroup>

@@ -77,7 +77,7 @@ Target.create "CreateDevCerts" (fun _ ->
 Target.create "officedebug" (fun _ ->
     run dotnet "build" sharedPath
     [ "server", dotnet "watch run" serverPath
-      "client", dotnet "fable watch --run webpack-dev-server" clientPath
+      "client", dotnet "fable watch -o output -s --run webpack-dev-server" clientPath
       /// sideload webapp in excel
       "officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
       ]
@@ -117,6 +117,8 @@ Target.create "Format" (fun _ ->
     run dotnet "fantomas . -r" "src"
 )
 
+Target.create "Setup" ignore 
+
 open Fake.Core.TargetOperators
 
 let dependencies = [
@@ -137,6 +139,10 @@ let dependencies = [
         ==> "CreateDevCerts"
         ==> "SetLoopbackExempt"
         ==> "Setup"
+
+    "Clean"
+        ==> "InstallClient"
+        ==> "officedebug"
 ]
 
 [<EntryPoint>]
