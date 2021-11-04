@@ -36,17 +36,17 @@ var CONFIG = {
     },
     // Use babel-preset-env to generate JS compatible with most-used browsers.
     // More info at https://github.com/babel/babel/blob/master/packages/babel-preset-env/README.md
-    babel: {
-        presets: [
-            ["@babel/preset-env", {
-                "modules": false,
-                "useBuiltIns": "usage",
-                "corejs": 3,
-                // This saves around 4KB in minified bundle (not gzipped)
-                // "loose": true,
-            }]
-        ],
-    }
+    // babel: {
+    //     presets: [
+    //         ["@babel/preset-env", {
+    //             "modules": false,
+    //             "useBuiltIns": "usage",
+    //             "corejs": 3,
+    //             // This saves around 4KB in minified bundle (not gzipped)
+    //             // "loose": true,
+    //         }]
+    //     ],
+    // }
 }
 
 // If we're running the webpack-dev-server, assume we're in development mode
@@ -78,7 +78,7 @@ module.exports = {
     // Add a hash to the output file name in production
     // to prevent browser caching if code changes
     output: {
-        path: path.join(__dirname, CONFIG.outputDir), //resolve(CONFIG.outputDir),
+        path: resolve(CONFIG.outputDir),
         filename: isProduction ? '[name].[fullhash].js' : '[name].js'
     },
     mode: isProduction ? 'production' : 'development',

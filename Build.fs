@@ -103,6 +103,7 @@ Target.create "Run" (fun _ ->
     run dotnet "build" sharedPath
     [ "server", dotnet "watch run" serverPath
       //"client", dotnet "fable watch -o output -s --run webpack-dev-server" clientPath
+      /// Start testing client with webpack by using: "dotnet fable watch src/Client --run webpack serve" in root
       "client", dotnet "dotnet fable watch src/Client --run webpack serve" ""
     ]
     |> runParallel
