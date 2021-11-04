@@ -1,6 +1,6 @@
-# SAFE Template
+# SAFE-MinExcel [WIP]
 
-This template can be used to generate a full-stack web application using the [SAFE Stack](https://safe-stack.github.io/). It was created using the dotnet [SAFE Template](https://safe-stack.github.io/docs/template-overview/). If you want to learn more about the template why not start with the [quick start](https://safe-stack.github.io/docs/quickstart/) guide?
+This is meant as a minimal template to set up an Office Excel web add-in. It currently works for excel online. Sideloading the app for the desktop version needs some testing.
 
 ## Install pre-requisites
 
@@ -8,30 +8,6 @@ You'll need to install the following pre-requisites in order to build SAFE appli
 
 * [.NET Core SDK](https://www.microsoft.com/net/download) 5.0 or higher
 * [Node LTS](https://nodejs.org/en/download/)
-
-## Starting the application
-
-Before you run the project **for the first time only** you must install dotnet "local tools" with this command:
-
-```bash
-dotnet tool restore
-```
-
-To concurrently run the server and the client components in watch mode use the following command:
-
-```bash
-dotnet run
-```
-
-Then open `http://localhost:8080` in your browser.
-
-The build project in root directory contains a couple of different build targets. You can specify them after `--` (target name is case-insensitive).
-
-To run concurrently server and client tests in watch mode (you can run this command in parallel to the previous one in new terminal):
-
-```bash
-dotnet run -- RunTests
-```
 
 Client tests are available under `http://localhost:8081` in your browser and server tests are running in watch mode in console.
 
