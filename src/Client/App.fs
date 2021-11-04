@@ -12,7 +12,7 @@ Program.mkProgram Index.init Index.update Index.view
 #if DEBUG
 |> Program.withConsoleTrace
 #endif
-|> Program.withReactSynchronous "elmish-app"
+|> Program.withReactBatched "elmish-app"
 #if DEBUG
 |> Program.withDebugger
 #endif
