@@ -1,80 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-    <Id>fa87d948-9839-4bf0-be88-09b7d98b73a9</Id>
-    <Version>0.1.0</Version>
-    <ProviderName>Computational Systems Biology</ProviderName>
-    <DefaultLocale>en-US</DefaultLocale>
-    <DisplayName DefaultValue="MinSAFE"/>
-    <Description DefaultValue="Test template for excel add-ins with SAFE"/>
-    <IconUrl DefaultValue="https://localhost:3000/334-32x32.jpg"/>
-    <HighResolutionIconUrl DefaultValue="https://localhost:3000/894-80x80.jpg"/>
-    <SupportUrl DefaultValue="https://github.com/Freymaurer/SAFE-MinExcel/issues"/>
-    <AppDomains>
-        <AppDomain>https://github.com/Freymaurer/SAFE-MinExcel</AppDomain>
-    </AppDomains>
+  <Id>fa87d948-9839-4bf0-be88-09b7d98b73a9</Id>
+  <Version>0.5.1</Version>
+  <ProviderName>Computational Systems Biology</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Minimal-SAFE"/>
+  <Description DefaultValue="Test template for excel add-ins with SAFE."/>
+  <IconUrl DefaultValue="https://localhost:3000/334-32x32.jpg"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/894-80x80.jpg"/>
+  <SupportUrl DefaultValue="https://github.com/Freymaurer/SAFE-MinExcel/issues"/>
+  <AppDomains>
+    <AppDomain>https://github.com/Freymaurer/SAFE-MinExcel</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Hosts>
-        <Host Name="Workbook"/>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabData">
+              <Group id="TestCommands">
+                <Label resid="TestCommands.Label"/>
+                <Icon>
+                  <!-- These are necessary otherwise the app cannot be found via shared networks -->
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="20" resid="Icon.20x20"/>
+                  <bt:Image size="24" resid="Icon.24x24"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="40" resid="Icon.40x40"/>
+                  <bt:Image size="48" resid="Icon.48x48"/>
+                  <bt:Image size="64" resid="Icon.64x64"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                  <bt:Image size="96" resid="Icon.96x96"/>
+                </Icon>
+                <Control xsi:type="Button" id="Home">
+                    <Label resid="Home.Label"/>
+                    <Supertip>
+                        <Title resid="Home.Label"/>
+                        <Description resid="Home.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <!-- These are necessary otherwise the app cannot be found via shared networks -->
+                        <bt:Image size="16" resid="Icon.16x16"/>
+                        <bt:Image size="20" resid="Icon.20x20"/>
+                        <bt:Image size="24" resid="Icon.24x24"/>
+                        <bt:Image size="32" resid="Icon.32x32"/>
+                        <bt:Image size="40" resid="Icon.40x40"/>
+                        <bt:Image size="48" resid="Icon.48x48"/>
+                        <bt:Image size="64" resid="Icon.64x64"/>
+                        <bt:Image size="80" resid="Icon.80x80"/>
+                        <bt:Image size="96" resid="Icon.96x96"/>
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                        <TaskpaneId>ButtonId2</TaskpaneId>
+                        <SourceLocation resid="Home.Url"/>
+                    </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
     </Hosts>
-    <DefaultSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/"/>
-    </DefaultSettings>
-    <Permissions>ReadWriteDocument</Permissions>
-    <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
-        <Hosts>
-            <Host xsi:type="Workbook">
-                <DesktopFormFactor>
-                    <GetStarted>
-                        <Title resid="GetStarted.Title"/>
-                        <Description resid="GetStarted.Description"/>
-                        <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
-                    </GetStarted>
-                    <ExtensionPoint xsi:type="PrimaryCommandSurface">
-                        <OfficeTab id="TabData">
-                            <Group id="TestCommands">
-                                <Label resid="TestCommands.Label"/>
-                                <Icon>
-                                    <bt:Image size="32" resid="Icon.32x32"/>
-                                    <bt:Image size="80" resid="Icon.80x80"/>
-                                </Icon>
-                                <Control xsi:type="Button" id="Home">
-                                    <Label resid="Home.Label"/>
-                                    <Supertip>
-                                        <Title resid="Home.Label"/>
-                                        <Description resid="Home.Tooltip"/>
-                                    </Supertip>
-                                    <Icon>
-                                        <bt:Image size="32" resid="Icon.32x32"/>
-                                        <bt:Image size="80" resid="Icon.80x80"/>
-                                    </Icon>
-                                    <Action xsi:type="ShowTaskpane">
-                                        <TaskpaneId>ButtonId2</TaskpaneId>
-                                        <SourceLocation resid="Home.Url"/>
-                                    </Action>
-                                </Control>
-                            </Group>
-                        </OfficeTab>
-                    </ExtensionPoint>
-                </DesktopFormFactor>
-            </Host>
-        </Hosts>
-        <Resources>
-            <bt:Images>
-                <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/334-32x32.jpg"/>
-                <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/894-80x80.jpg"/>
-            </bt:Images>
-            <bt:Urls>
-                <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
-                <bt:Url id="Home.Url" DefaultValue="https://localhost:3000"/>
-            </bt:Urls>
-            <bt:ShortStrings>
-                <bt:String id="GetStarted.Title" DefaultValue="Get started annotating your data for greater good!"/>
-                <bt:String id="TestCommands.Label" DefaultValue="Commands"/>
-                <bt:String id="Home.Label" DefaultValue="Home"/>
-            </bt:ShortStrings>
-            <bt:LongStrings>
-                <bt:String id="GetStarted.Description" DefaultValue="The add-in was loaded succesfully. Go to the DATA tab to get started."/>
-                <bt:String id="Home.Tooltip" DefaultValue="Open a task pane to access the web add-in."/>
-            </bt:LongStrings>
-        </Resources>
-    </VersionOverrides>
+    <Resources>
+      <bt:Images>
+        <!-- These are necessary otherwise the app cannot be found via shared networks -->
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/32-16x16.jpg"/>
+        <bt:Image id="Icon.20x20" DefaultValue="https://localhost:3000/375-20x20.jpg"/>
+        <bt:Image id="Icon.24x24" DefaultValue="https://localhost:3000/76-24x24.jpg"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/334-32x32.jpg"/>
+        <bt:Image id="Icon.40x40" DefaultValue="https://localhost:3000/978-40x40.jpg"/>
+        <bt:Image id="Icon.48x48" DefaultValue="https://localhost:3000/984-48x48.jpg"/>
+        <bt:Image id="Icon.64x64" DefaultValue="https://localhost:3000/822-64x64.jpg"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/894-80x80.jpg"/>
+        <bt:Image id="Icon.96x96" DefaultValue="https://localhost:3000/424-96x96.jpg"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
+        <bt:Url id="Home.Url" DefaultValue="https://localhost:3000"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started writing your own add-in!"/>
+        <bt:String id="TestCommands.Label" DefaultValue="Commands"/>
+        <bt:String id="Home.Label" DefaultValue="Home"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="The add-in was loaded succesfully. Go to the DATA tab to get started."/>
+        <bt:String id="Home.Tooltip" DefaultValue="Open a task pane to access the web add-in."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
 </OfficeApp>
