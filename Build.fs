@@ -16,6 +16,8 @@ let sharedTestsPath = Path.getFullName "tests/Shared"
 let serverTestsPath = Path.getFullName "tests/Server"
 let clientTestsPath = Path.getFullName "tests/Client"
 
+let url = "https://localhost:3000"
+
 Target.create "Clean" (fun _ ->
     Shell.cleanDir deployPath
     run dotnet "fable clean --yes" clientPath // Delete *.fs.js files created by Fable
@@ -76,8 +78,9 @@ Target.create "CreateDevCerts" (fun _ ->
 
 Target.create "officedebug" (fun _ ->
     run dotnet "build" sharedPath
+    openBrowser url
     [ "server", dotnet "watch run" serverPath
-      "client", dotnet "fable watch -o output -s --run webpack-dev-server" clientPath
+      "client", dotnet "fable watch src/Client --run webpack-dev-server" ""
       /// sideload webapp in excel
       "officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
       ]
@@ -99,12 +102,15 @@ Target.create "Azure" (fun _ ->
     |> ignore
 )
 
+
+
+
 Target.create "Run" (fun _ ->
     run dotnet "build" sharedPath
+    openBrowser url
     [ "server", dotnet "watch run" serverPath
-      //"client", dotnet "fable watch -o output -s --run webpack-dev-server" clientPath
-      /// Start testing client with webpack by using: "dotnet fable watch src/Client --run webpack serve" in root
-      "client", dotnet "dotnet fable watch src/Client --run webpack serve" ""
+      //"client", dotnet "fable watch src/Client --run webpack serve --mode development" "" // Working
+      "client", dotnet "fable watch src/Client --run webpack-dev-server" ""
     ]
     |> runParallel
 )

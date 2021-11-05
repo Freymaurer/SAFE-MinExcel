@@ -14,7 +14,7 @@ var CONFIG = {
     // The tags to include the generated JS and CSS will be automatically injected in the HTML template
     // See https://github.com/jantimon/html-webpack-plugin
     indexHtmlTemplate: './src/Client/index.html',
-    fsharpEntry: './src/Client/output/App.js',
+    fsharpEntry: './src/Client/App.fs.js',
     cssEntry: './src/Client/style.scss',
     outputDir: './deploy',
     assetsDir: './src/Client/public',
@@ -36,17 +36,20 @@ var CONFIG = {
     },
     // Use babel-preset-env to generate JS compatible with most-used browsers.
     // More info at https://github.com/babel/babel/blob/master/packages/babel-preset-env/README.md
-    // babel: {
-    //     presets: [
-    //         ["@babel/preset-env", {
-    //             "modules": false,
-    //             "useBuiltIns": "usage",
-    //             "corejs": 3,
-    //             // This saves around 4KB in minified bundle (not gzipped)
-    //             // "loose": true,
-    //         }]
-    //     ],
-    // }
+     babel: {
+         presets: [
+             ["@babel/preset-env", {
+                 "targets": {
+                     "ie": "11"
+                 },
+                 "modules": false,
+                 "useBuiltIns": "usage",
+                 "corejs": 3,
+                 // This saves around 4KB in minified bundle (not gzipped)
+                 // "loose": true,
+             }]
+         ],
+     }
 }
 
 // If we're running the webpack-dev-server, assume we're in development mode
@@ -159,7 +162,15 @@ module.exports = {
                 test: /\.js$/,
                 enforce: "pre",
                 use: ['source-map-loader'],
-            }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: CONFIG.babel
+                },
+            },
         ]
     }
 };
