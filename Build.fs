@@ -25,12 +25,6 @@ Target.create "Clean" (fun _ ->
 
 Target.create "InstallClient" (fun _ -> run npm "install" ".")
 
-Target.create "Bundle" (fun _ ->
-    [ "server", dotnet $"publish -c Release -o \"{deployPath}\"" serverPath
-      "client", dotnet "fable -o output -s --run webpack -p" clientPath ]
-    |> runParallel
-)
-
 Target.create "InstallOfficeAddinTooling" (fun _ ->
 
     printfn "Installing office addin tooling"
@@ -83,6 +77,16 @@ Target.create "officedebug" (fun _ ->
       "client", dotnet "fable watch src/Client --run webpack-dev-server" ""
       /// sideload webapp in excel
       "officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
+      ]
+    |> runParallel
+)
+
+Target.create "Bundle" (fun _ ->
+    [ "server", dotnet $"publish -c Release -o \"{deployPath}\"" serverPath
+      //"client", dotnet "fable -o output -s --run webpack -p" ""
+      "client",
+        CreateProcess.fromRawCommandLine "dotnet" "fable src/Client -s --run webpack --mode production"
+        |> CreateProcess.ensureExitCode
       ]
     |> runParallel
 )

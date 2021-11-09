@@ -16,7 +16,7 @@ var CONFIG = {
     indexHtmlTemplate: './src/Client/index.html',
     fsharpEntry: './src/Client/App.fs.js',
     cssEntry: './src/Client/style.scss',
-    outputDir: './deploy',
+    outputDir: './deploy/public',
     assetsDir: './src/Client/public',
     publicPath: '/',
     devServerPort: 3000,
@@ -124,9 +124,9 @@ module.exports = {
         host: '0.0.0.0',
         port: CONFIG.devServerPort,
         https: {
-            key: "{USERFOLDER}/.office-addin-dev-certs/localhost.key",
-            cert: "{USERFOLDER}/.office-addin-dev-certs/localhost.crt",
-            ca: "{USERFOLDER}/.office-addin-dev-certs/ca.crt"
+            key: "C:/Users/User/.office-addin-dev-certs/localhost.key",
+            cert: "C:/Users/User/.office-addin-dev-certs/localhost.crt",
+            ca: "C:/Users/User/.office-addin-dev-certs/ca.crt"
         },
         proxy: CONFIG.devServerProxy,
         hot: true,
