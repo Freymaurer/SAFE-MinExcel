@@ -45,6 +45,7 @@ let webApp =
     |> Remoting.fromValue todosApi
     |> Remoting.buildHttpHandler
 
+//https://stackify.com/how-to-deploy-asp-net-core-to-iis/
 let app =
     application {
         url "http://0.0.0.0:5000"
@@ -52,6 +53,7 @@ let app =
         memory_cache
         use_static "public"
         use_gzip
+        use_iis
     }
 
 run app
