@@ -9,6 +9,11 @@ You'll need to install the following pre-requisites in order to build SAFE appli
 * [.NET Core SDK](https://www.microsoft.com/net/download) 5.0 or higher
 * [Node LTS](https://nodejs.org/en/download/)
 
+1. Download repo.
+2. Run install.cmd as admin.
+3. To start the app run `dotnet run` in the root directory.
+4. Webside can be accessed under 'https://localhost:3000'
+
 Client tests are available under `http://localhost:8081` in your browser and server tests are running in watch mode in console.
 
 Finally, there are `Bundle` and `Azure` targets that you can use to package your app and deploy to Azure, respectively:
