@@ -5,12 +5,14 @@
         "build": "webpack -p",
         "test:live": "webpack-dev-server --config webpack.tests.config.js"
     },
+    "browserslist": [
+        "last 1 version, not dead, ie >= 11"
+    ],
     "devDependencies": {
         "@babel/core": "^7.16.0",
         "@babel/preset-env": "^7.16.0",
         "babel-loader": "^8.2.3",
         "copy-webpack-plugin": "^9.0.1",
-        "core-js": "^3.19.1",
         "css-loader": "^6.5.1",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^5.5.0",
@@ -28,6 +30,8 @@
         "webpack-dev-server": "^4.4.0"
     },
     "dependencies": {
-        "bulma": "^0.9.3"
+        "bulma": "^0.9.3",
+        "fable-compiler": "^2.13.0",
+        "fable-loader": "^2.1.9"
     }
 }
