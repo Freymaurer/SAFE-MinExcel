@@ -33,23 +33,7 @@ var CONFIG = {
             target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "5000"),
             ws: true
         }
-    },
-    // Use babel-preset-env to generate JS compatible with most-used browsers.
-    // More info at https://github.com/babel/babel/blob/master/packages/babel-preset-env/README.md
-     babel: {
-        presets: [
-            ["@babel/preset-env", {
-                "targets": {
-                    "ie": "11"
-                },
-                "modules": false,
-                "useBuiltIns": "usage",
-                "corejs": 3,
-                // This saves around 4KB in minified bundle (not gzipped)
-                // "loose": true,
-            }]
-        ],
-     }
+    }
 }
 
 // If we're running the webpack-dev-server, assume we're in development mode
@@ -84,7 +68,6 @@ module.exports = {
         path: resolve(CONFIG.outputDir),
         filename: isProduction ? '[name].[fullhash].js' : '[name].js'
     },
-    target: ['browserslist'],
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? 'source-map' : 'eval-source-map',
     optimization: {
@@ -143,15 +126,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.fs(x|proj)?$/,
-                use: {
-                    loader: "fable-loader",
-                    options: {
-                        babel: CONFIG.babel
-                    }
-                }
-            },
-            {
                 test: /\.(sass|scss|css)$/,
                 use: [
                     isProduction
@@ -168,6 +142,11 @@ module.exports = {
                 test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
                 use: ['file-loader']
             },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ['source-map-loader'],
+            }
         ]
     }
 };
