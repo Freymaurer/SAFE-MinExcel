@@ -76,7 +76,7 @@ Target.create "officedebug" (fun _ ->
     [ "server", dotnet "watch run" serverPath
       "client", dotnet "fable watch src/Client -s --run webpack-dev-server" ""
       /// sideload webapp in excel
-      "officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
+      //"officedebug", npx "office-addin-debugging start manifest.xml desktop --debug-method web" __SOURCE_DIRECTORY__
       ]
     |> runParallel
 )

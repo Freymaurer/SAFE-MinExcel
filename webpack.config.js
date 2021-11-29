@@ -33,6 +33,22 @@ var CONFIG = {
             target: 'http://localhost:' + (process.env.SERVER_PROXY_PORT || "5000"),
             ws: true
         }
+    },
+    babel: {
+        presets: [
+            ['@babel/preset-env', {
+                modules: false,
+                // This adds polyfills when needed. Requires core-js dependency.
+                // See https://babeljs.io/docs/en/babel-preset-env#usebuiltins
+                // Note that you still need to add custom polyfills if necessary (e.g. whatwg-fetch)
+                useBuiltIns: 'usage',
+                corejs: 3,
+                "targets": {
+                    "chrome": "58",
+                    "ie": "11"
+                }
+            }]
+        ],
     }
 }
 
@@ -126,6 +142,23 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.fs(x|proj)?$/,
+                use: {
+                    loader: 'fable-loader',
+                    options: {
+                        babel: CONFIG.babel
+                    }
+                }
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: CONFIG.babel
+                },
+            },
+            {
                 test: /\.(sass|scss|css)$/,
                 use: [
                     isProduction
@@ -141,12 +174,12 @@ module.exports = {
             {
                 test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
                 use: ['file-loader']
-            },
-            {
-                test: /\.js$/,
-                enforce: "pre",
-                use: ['source-map-loader'],
             }
+            //{
+            //    test: /\.js$/,
+            //    enforce: "pre",
+            //    use: ['source-map-loader'],
+            //}
         ]
     }
 };
