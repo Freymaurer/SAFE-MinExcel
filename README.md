@@ -1,6 +1,13 @@
-# SAFE-MinExcel [WIP]
+# SAFE-MinExcel
 
-This is meant as a minimal template to set up an Office Excel web add-in. It currently works for excel online. Sideloading the app for the desktop version needs some testing.
+This is meant as a minimal template to set up an Office Excel web add-in. 
+
+Tested for: 
+- Excel online
+- Excel 356 on windows
+- Excel 2019 on windows
+
+
 
 ## Install pre-requisites
 
@@ -10,18 +17,10 @@ You'll need to install the following pre-requisites in order to build SAFE appli
 * [Node LTS](https://nodejs.org/en/download/)
 
 1. Download repo.
-2. Run install.cmd as admin.
-3. To start the app run `dotnet run` in the root directory.
+2. Run install.cmd as admin **or** run `dotnet run setup`.
+3. To start the app run `dotnet run officedebug` in the root directory.
 4. Webside can be accessed under 'https://localhost:3000'
-
-Client tests are available under `http://localhost:8081` in your browser and server tests are running in watch mode in console.
-
-Finally, there are `Bundle` and `Azure` targets that you can use to package your app and deploy to Azure, respectively:
-
-```bash
-dotnet run -- Bundle
-dotnet run -- Azure
-```
+5. Start Excel and go to `Insert` > `My Add-ins` > click on the small arrow and it should show **Minimal-SAFE**.
 
 ## SAFE Stack Documentation
 
