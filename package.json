@@ -5,11 +5,6 @@
         "build": "webpack -p",
         "test:live": "webpack-dev-server --config webpack.tests.config.js"
     },
-    "babel": {
-        "presets": [
-            "@babel/preset-env"
-        ]
-    },
     "devDependencies": {
         "@babel/core": "^7.16.0",
         "@babel/preset-env": "^7.16.0",

@@ -42,11 +42,7 @@ var CONFIG = {
                 // See https://babeljs.io/docs/en/babel-preset-env#usebuiltins
                 // Note that you still need to add custom polyfills if necessary (e.g. whatwg-fetch)
                 useBuiltIns: 'usage',
-                corejs: 3,
-                "targets": {
-                    "chrome": "58",
-                    "ie": "11"
-                }
+                corejs: 3
             }]
         ],
     }
@@ -85,6 +81,7 @@ module.exports = {
         filename: isProduction ? '[name].[fullhash].js' : '[name].js'
     },
     mode: isProduction ? 'production' : 'development',
+    target: ["web", "es5"],
     devtool: isProduction ? 'source-map' : 'eval-source-map',
     optimization: {
         splitChunks: {
@@ -142,16 +139,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.fs(x|proj)?$/,
-                use: {
-                    loader: 'fable-loader',
-                    options: {
-                        babel: CONFIG.babel
-                    }
-                }
-            },
-            {
-                test: /\.js$/,
+                test: /\.m?js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -174,12 +162,12 @@ module.exports = {
             {
                 test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/,
                 use: ['file-loader']
+            },
+            {
+                test: /\.js$/,
+                enforce: "pre",
+                use: ['source-map-loader'],
             }
-            //{
-            //    test: /\.js$/,
-            //    enforce: "pre",
-            //    use: ['source-map-loader'],
-            //}
         ]
     }
 };
