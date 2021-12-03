@@ -87,6 +87,7 @@ module.exports = {
         splitChunks: {
             chunks: 'all'
         },
+        runtimeChunk: "single"
     },
     // Besides the HtmlPlugin, we use the following plugins:
     // PRODUCTION
