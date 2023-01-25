@@ -5,9 +5,7 @@ This is meant as a minimal template to set up an Office Excel web add-in.
 Tested for: 
 - Excel online
 - Excel 356 on windows
-- Excel 2019 on windows
-
-
+- Excel 2019 on windows (Maybe not anymore)
 
 ## Install pre-requisites
 
@@ -18,6 +16,15 @@ You'll need to install the following pre-requisites in order to build SAFE appli
 
 1. Download repo.
 2. Run install.cmd as admin **or** run `dotnet run setup`.
+    1. Pop-up `Root Certificate Store` click yes
+    
+      Part of installing development certificates, ebcause excel enforces https for its add-ins
+    2.  Pop-up `Security Warning` click yes
+    3. `Certificate` window, click
+      1. "Install Certificate..."
+      2. "Local Machine"
+      3. Place all in the following store:
+      4. "Browse..." -> "Trusted Root Certification Authorities", hit Ok -> Next -> Finish -> Ok
 3. To start the app run `dotnet run officedebug` in the root directory.
 4. Website can be accessed under 'https://localhost:3000'
 5. Start Excel and go to `Insert` > `My Add-ins` > click on the small arrow and it should show **Minimal-SAFE**.
