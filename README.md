@@ -19,7 +19,7 @@ You'll need to install the following pre-requisites in order to build SAFE appli
 1. Download repo.
 2. Run install.cmd as admin **or** run `dotnet run setup`.
 3. To start the app run `dotnet run officedebug` in the root directory.
-4. Webside can be accessed under 'https://localhost:3000'
+4. Website can be accessed under 'https://localhost:3000'
 5. Start Excel and go to `Insert` > `My Add-ins` > click on the small arrow and it should show **Minimal-SAFE**.
 
 ## SAFE Stack Documentation
